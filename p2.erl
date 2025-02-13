@@ -7,32 +7,28 @@ start() ->
 loop() -> 
     io:format("Enter a number: "),
     case io:fread("", "~d") of
-        {ok, [Value]} ->  % Successfully read an integer
+        {ok, [Value]} ->  
             if
                 Value < 0 -> 
                     Result = math:pow(abs(Value), 7),
                     io:format("~w raised to the 7th power is: ~w~n", [abs(Value), Result]),
                     loop();
                 Value == 0 -> 
-                    io:format("0~nGoodbye!~n"), 
-                    halt();  % Stops the program
+                    io:format("0~nGoodbye!~n"),
+                    halt();
                 Value > 0 -> 
                     if
                         Value rem 7 == 0 -> 
                             Root = math:pow(Value, 1/5),
-                            io:format("The 5th root of ~w is: ~w~n", [Value, Root]),
-                            loop();
+                            io:format("The 5th root of ~w is: ~w~n", [Value, Root]);
                         true -> 
                             Fact = factorial(Value),
-                            io:format("The factorial of ~w is: ~w~n", [Value, Fact]),
-                            loop()
-                    end
+                            io:format("The factorial of ~w is: ~w~n", [Value, Fact])
+                    end,
+                    loop()
             end;
-        {error, _} ->  % If the input is not an integer
+        {error, _} ->  
             io:format("not an integer~n"),
-            loop();
-        _ -> 
-            io:format("Invalid input. Please enter an integer.~n"),
             loop()
     end.
 
