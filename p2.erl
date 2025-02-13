@@ -1,7 +1,6 @@
 -module(number_processor).
 -export([start/0, process_number/1, factorial/1]).
 
--team("reese letts, maria thomas").
 
 start() -> 
     loop().
