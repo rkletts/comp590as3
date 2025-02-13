@@ -1,8 +1,6 @@
 -module(p1).
 -export([process_number/0, factorial/1]).
 
-# -team("reese letts, maria thomas").
-
 process_number() -> 
     {ok, Num} = io:read("Enter a number: "),
     if
