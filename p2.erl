@@ -1,36 +1,40 @@
 -module(p2).
--export([start/0, factorial/1]).
+-export([start/0]).
 
-start() -> 
+% team: [Maria Thomas & Reese Letts]
+
+start() ->
+    io:format("Welcome! Enter numbers to process (0 to exit).~n"),
     loop().
 
-loop() -> 
-    io:format("Enter a number: "),
-    case io:fread("", "~d") of
-        {ok, [Value]} ->  
-            if
-                Value < 0 -> 
-                    Result = math:pow(abs(Value), 7),
-                    io:format("~w raised to the 7th power is: ~w~n", [abs(Value), Result]),
-                    loop();
-                Value == 0 -> 
-                    io:format("0~nGoodbye!~n"),
-                    end;  % Properly exits loop
-                true ->  % Value > 0 case
-                    if
-                        Value rem 7 == 0 -> 
-                            Root = math:pow(Value, 1/5),
-                            io:format("The 5th root of ~w is: ~w~n", [Value, Root]);
-                        true -> 
-                            Fact = factorial(Value),
-                            io:format("The factorial of ~w is: ~w~n", [Value, Fact])
-                    end,
-                    loop()
-            end;
-        {error, _} ->  
+loop() ->
+    case io:read("Enter a number: ") of
+        {ok, 0} ->
+            io:format("Exiting...~n"),
+            ok;
+        {ok, Num} when is_integer(Num) ->
+            compute_result(Num),
+            loop();
+        _ ->
             io:format("not an integer~n"),
             loop()
     end.
 
+compute_result(0) ->
+    io:format("0~n");
+
+
+compute_result(Num) when Num < 0 ->
+    Result = math:pow(abs(Num), 7),
+    io:format("Absolute value to the 7th power: ~w~n", [Result]);
+
+compute_result(Num) when Num > 0, Num rem 7 =:= 0 ->
+    Root5 = math:pow(Num, 1/5),
+    io:format("5th root: ~w~n", [Root5]);
+
+compute_result(Num) when Num > 0 ->
+    io:format("Factorial: ~w~n", [factorial(Num)]).
+
+
 factorial(0) -> 1;
-factorial(N) when N > 0 -> N * factorial(N - 1).
+factorial(N) -> N * factorial(N - 1).
