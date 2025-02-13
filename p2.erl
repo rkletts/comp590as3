@@ -6,17 +6,16 @@ start() ->
 
 loop() -> 
     io:format("Enter a number: "),
-    {ok, Num} = io:fread("", "~d"),  % Reads an integer
-    case Num of
-        eof -> io:format("Goodbye!~n");  % Handles end of input
-        [Value] -> 
+    case io:fread("", "~d") of
+        {ok, [Value]} ->  % Successfully read an integer
             if
                 Value < 0 -> 
                     Result = math:pow(abs(Value), 7),
                     io:format("~w raised to the 7th power is: ~w~n", [abs(Value), Result]),
                     loop();
                 Value == 0 -> 
-                    io:format("0~nGoodbye!~n");  % Stops looping when 0 is entered
+                    io:format("0~nGoodbye!~n"), 
+                    halt();  % Stops the program
                 Value > 0 -> 
                     if
                         Value rem 7 == 0 -> 
@@ -29,6 +28,9 @@ loop() ->
                             loop()
                     end
             end;
+        {error, _} ->  % If the input is not an integer
+            io:format("not an integer~n"),
+            loop();
         _ -> 
             io:format("Invalid input. Please enter an integer.~n"),
             loop()
