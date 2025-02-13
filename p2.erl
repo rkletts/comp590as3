@@ -15,8 +15,8 @@ loop() ->
                     loop();
                 Value == 0 -> 
                     io:format("0~nGoodbye!~n"),
-                    halt();
-                Value > 0 -> 
+                    end;  % Properly exits loop
+                true ->  % Value > 0 case
                     if
                         Value rem 7 == 0 -> 
                             Root = math:pow(Value, 1/5),
