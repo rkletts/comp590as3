@@ -1,4 +1,4 @@
--module(number_processor).
+-module(p1).
 -export([process_number/0, factorial/1]).
 
 -team("reese letts, maria thomas").
