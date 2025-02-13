@@ -16,8 +16,7 @@ loop() ->
                     io:format("~w raised to the 7th power is: ~w~n", [abs(Value), Result]),
                     loop();
                 Value == 0 -> 
-                    io:format("0~n"),
-                    loop();
+                    io:format("0~nGoodbye!~n");  % Stops looping when 0 is entered
                 Value > 0 -> 
                     if
                         Value rem 7 == 0 -> 
